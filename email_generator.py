@@ -5,7 +5,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 llm = ChatGroq(
     groq_api_key=GROQ_API_KEY,
-     model_name="llama-3.1-8b-instant",  # ✅ UPDATED MODEL
+    model_name="llama-3.1-8b-instant",
     temperature=0.3
 )
 
@@ -18,16 +18,16 @@ def generate_cold_email(
     portfolio_info=""
 ):
     prompt = f"""
-Write a professional cold email for a job application.
+Write a professional cold job application email.
 
-Candidate Name: {name}
+Applicant Name: {name}
 Company: {company_name}
 Job Title: {job_title}
 Skills: {skills}
 Job Description: {job_description}
 Portfolio: {portfolio_info}
 
-The email should be polite, confident, and realistic.
+The email should be polite, confident, and concise.
 """
 
     response = llm.invoke(prompt)
