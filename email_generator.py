@@ -15,9 +15,12 @@ def generate_cold_email(name, company, purpose):
                 "content": f"""
 Write a professional cold email.
 
+prompt = f"""
 Sender name: {name}
 Company: {company}
 Purpose: {purpose}
+"""
+
 """
             }
         ],
@@ -26,4 +29,5 @@ Purpose: {purpose}
     )
 
     return response.choices[0].message.content
+
 
