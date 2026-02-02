@@ -1,34 +1,26 @@
+from groq import Groq
 import os
-from langchain_groq import ChatGroq
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+# 🔐 API KEY DIRECT (Secrets ki zarurat nahi)
+os.environ["GROQ_API_KEY"] = "PASTE_YOUR_GROQ_API_KEY_HERE"
 
-llm = ChatGroq(
-    groq_api_key=GROQ_API_KEY,
-    model_name="llama-3.1-8b-instant",
-    temperature=0.3
-)
+client = Groq()
 
-def generate_cold_email(
-    name,
-    company_name,
-    job_title,
-    skills,
-    job_description,
-    portfolio_info=""
-):
+def generate_cold_email(name, company, purpose):
     prompt = f"""
-Write a professional cold job application email.
+    Write a professional cold email.
 
-Applicant Name: {name}
-Company: {company_name}
-Job Title: {job_title}
-Skills: {skills}
-Job Description: {job_description}
-Portfolio: {portfolio_info}
+    Name: {name}
+    Company: {company}
+    Purpose: {purpose}
+    """
 
-The email should be polite, confident, and concise.
-"""
+    completion = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.3
+    )
 
-    response = llm.invoke(prompt)
-    return response.content
+    return completion.choices[0].message.content
