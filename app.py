@@ -1,5 +1,5 @@
-import streamlit as st
 from email_generator import generate_cold_email
+import streamlit as st
 
 st.set_page_config(page_title="Cold Email Generator")
 
@@ -16,3 +16,4 @@ if st.button("Generate Email"):
         st.text_area("Your Email", email, height=250)
     else:
         st.warning("Please fill all fields")
+
