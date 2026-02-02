@@ -2,7 +2,7 @@ from groq import Groq
 import os
 
 # 🔐 API KEY (single line, no enter)
-os.environ["GROQ_API_KEY"] = "PASTE_YOUR_NEW_GROQ_API_KEY_HERE"
+os.environ["GROQ_API_KEY"] = "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"
 
 def generate_cold_email(name, company, purpose):
     client = Groq(api_key=os.environ["GROQ_API_KEY"])
@@ -26,3 +26,4 @@ Purpose: {purpose}
     )
 
     return response.choices[0].message.content
+
