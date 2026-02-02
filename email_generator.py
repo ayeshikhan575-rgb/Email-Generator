@@ -1,26 +1,28 @@
 from groq import Groq
 import os
 
-# 🔐 API KEY DIRECT (Secrets ki zarurat nahi)
-os.environ["GROQ_API_KEY"] = "PASTE_YOUR_GROQ_API_KEY_HERE"
-
-client = Groq()
+# 🔐 API KEY (single line, no enter)
+os.environ["GROQ_API_KEY"] = "PASTE_YOUR_NEW_GROQ_API_KEY_HERE"
 
 def generate_cold_email(name, company, purpose):
-    prompt = f"""
-    Write a professional cold email.
+    client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
-    Name: {name}
-    Company: {company}
-    Purpose: {purpose}
-    """
-
-    completion = client.chat.completions.create(
+    response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[
-            {"role": "user", "content": prompt}
+            {
+                "role": "user",
+                "content": f"""
+Write a professional cold email.
+
+Sender name: {name}
+Company: {company}
+Purpose: {purpose}
+"""
+            }
         ],
-        temperature=0.3
+        temperature=0.3,
+        max_tokens=300
     )
 
-    return completion.choices[0].message.content
+    return response.choices[0].message.content
