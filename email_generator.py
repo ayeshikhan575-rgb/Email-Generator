@@ -9,8 +9,7 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("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")
 
 # Agar key na mile to error throw kare
-if not GROQ_API_KEY:
-    raise ValueError("GROQ_API_KEY environment variables me nahi mili")
+
 
 # Groq ka LLM initialize kar rahe hain
 llm = ChatGroq(
@@ -35,5 +34,6 @@ Email short aur professional honi chahiye.
 """
     response = llm.invoke(prompt)
     return response.content
+
 
 
