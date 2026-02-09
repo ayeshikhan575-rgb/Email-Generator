@@ -6,7 +6,7 @@ from langchain_groq import ChatGroq
 load_dotenv()
 
 # Groq ki API key environment se uthata hai
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_API_KEY = os.getenv("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")
 
 # Agar key na mile to error throw kare
 if not GROQ_API_KEY:
@@ -35,4 +35,5 @@ Email short aur professional honi chahiye.
 """
     response = llm.invoke(prompt)
     return response.content
+
 
