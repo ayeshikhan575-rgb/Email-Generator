@@ -1,36 +1,38 @@
 import os
+from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 
+# .env aur Streamlit Secrets se variables load karta hai
+load_dotenv()
+
+# Groq ki API key environment se uthata hai
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+# Agar key na mile to error throw kare
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY environment variables me nahi mili")
+
+# Groq ka LLM initialize kar rahe hain
 llm = ChatGroq(
-    groq_api_key=GROQ_API_KEY,
-    model_name="llama-3.1-8b-instant",   # ✅ WORKING MODEL
+    api_key=GROQ_API_KEY,     # yahan Groq ki key pass hoti hai
+    model_name="llama-3.1-8b-instant",
     temperature=0.3
 )
 
-def generate_cold_email(
-    name,
-    company,
-    job_title,
-    skills,
-    job_description,
-    portfolio_info=""
-):
+# Cold email generate karne ka function
+def generate_cold_email(name, company, job_title, skills, job_description, portfolio):
     prompt = f"""
-Write a professional cold job application email.
+Professional cold email likho.
 
-Candidate Name: {name}
-Company Name: {company}
+Naam: {name}
+Company: {company}
 Job Title: {job_title}
 Skills: {skills}
 Job Description: {job_description}
-Portfolio/LinkedIn: {portfolio_info}
+Portfolio: {portfolio}
 
-Tone: polite, confident, professional.
-End with a strong call to action.
+Email short aur professional honi chahiye.
 """
-
     response = llm.invoke(prompt)
     return response.content
 
