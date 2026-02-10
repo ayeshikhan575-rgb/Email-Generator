@@ -1,7 +1,7 @@
 import os
 from langchain_groq import ChatGroq
 
-# Read API key from Streamlit Secrets / Environment
+# Read API key from Streamlit Secrets
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 if not GROQ_API_KEY:
@@ -9,6 +9,7 @@ if not GROQ_API_KEY:
 
 # Initialize Groq LLM
 llm = ChatGroq(
+    api_key=GROQ_API_KEY,
     model_name="llama-3.1-8b-instant",
     temperature=0.3
 )
