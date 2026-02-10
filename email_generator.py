@@ -1,17 +1,14 @@
 import os
-from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 
-# env load (local + streamlit cloud)
-load_dotenv()
-
-# 🔥 yahan key read hoti hai
+# 🔐 Sirf Streamlit Secrets / Environment se key lo
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+# ❗ Cloud app crash na ho, sirf error message aaye
 if not GROQ_API_KEY:
-    raise ValueError("GROQ_API_KEY environment me nahi mil rahi")
+    raise RuntimeError("GROQ_API_KEY Streamlit Secrets me set nahi hai")
 
-# Groq LLM initialize
+# 🤖 Groq LLM initialize
 llm = ChatGroq(
     api_key=GROQ_API_KEY,
     model_name="llama-3.1-8b-instant",
@@ -20,16 +17,16 @@ llm = ChatGroq(
 
 def generate_cold_email(name, company, job_title, skills, job_description, portfolio):
     prompt = f"""
-Professional cold email likho.
+Write a professional cold email.
 
-Naam: {name}
+Name: {name}
 Company: {company}
 Job Title: {job_title}
 Skills: {skills}
 Job Description: {job_description}
 Portfolio: {portfolio}
 
-Email short aur professional honi chahiye.
+Keep it short and professional.
 """
     response = llm.invoke(prompt)
     return response.content
