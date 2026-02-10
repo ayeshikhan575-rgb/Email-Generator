@@ -1,8 +1,5 @@
-from dotenv import load_dotenv
 import streamlit as st
 from email_generator import generate_cold_email
-
-load_dotenv()
 
 st.set_page_config(page_title="AI Cold Email Generator")
 st.title("📧 AI-Powered Cold Email Generator")
@@ -29,3 +26,4 @@ if st.button("Generate Email"):
         st.text_area("Your Cold Email", email, height=320)
     else:
         st.warning("⚠️ Please fill all required fields")
+
